@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17130f"><meta name="description" content="Kanish Suf Cosmetics sales, receipts, stock and business records">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Kanish Suf Business Book</title>
+<style>
+:root{--ink:#17130f;--gold:#c59a45;--cream:#fbf6ec;--red:#b82d32;--muted:#766f65;--line:#e9dfce;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:#f4efe5;color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:linear-gradient(120deg,#17130f,#30251a);color:#fff;padding:18px 16px 14px;position:sticky;top:0;z-index:5;box-shadow:0 3px 15px #0002}
+.brand{display:flex;align-items:center;gap:11px}.mark{width:48px;height:48px;border:2px solid var(--gold);border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:20px;color:#fff;box-shadow:inset 0 0 0 2px #fff2}.brand h1{font-size:19px;margin:0}.brand small{color:#e5c77e;letter-spacing:1.5px;font-size:10px}
+nav{display:flex;gap:7px;overflow:auto;margin-top:15px;padding-bottom:2px}nav button{border:1px solid #ffffff33;background:#ffffff12;color:#fff;padding:9px 12px;border-radius:20px;white-space:nowrap;font-weight:650}nav button.active{background:var(--gold);color:#1b160e;border-color:var(--gold)}
+main{max-width:980px;margin:auto;padding:15px 13px 95px}.page{display:none}.page.active{display:block}.section-title{font-size:21px;margin:5px 0 12px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 3px 12px #24180608;margin-bottom:11px}.stat{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}.amount{font-size:22px;font-weight:800;margin-top:5px}.gold{color:#9b7026}.row{display:flex;gap:9px;align-items:center}.row>*{flex:1;min-width:0}.between{display:flex;justify-content:space-between;align-items:center;gap:10px}.field{margin:10px 0}.field label{display:block;font-size:12px;font-weight:700;color:#665b4d;margin-bottom:5px}
+input,select,textarea{width:100%;border:1px solid #ddd1bd;border-radius:10px;padding:11px 12px;background:#fff;color:#211b14;font:inherit;min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid #d9bd80;border-color:var(--gold)}button{cursor:pointer;font:inherit}.btn{border:0;border-radius:11px;padding:11px 14px;font-weight:750;background:var(--ink);color:#fff}.btn.goldbtn{background:var(--gold);color:#21180c}.btn.light{background:#f1e8d8;color:#332719}.btn.red{background:#a52b30}.btn.small{padding:8px 10px;font-size:12px}.btn.full{width:100%}.actions{display:flex;gap:8px;flex-wrap:wrap}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:#766b5d;font-size:11px;text-transform:uppercase}.right{text-align:right}.itemrow{display:grid;grid-template-columns:1.5fr .55fr .8fr 32px;gap:6px;margin:7px 0}.itemrow input{padding:9px 7px}.itemrow button{border:0;border-radius:8px;background:#f8e6e4;color:#a52b30}.totalbox{background:#faf5eb;border-radius:12px;padding:12px}.total-line{display:flex;justify-content:space-between;margin:6px 0}.total-line.final{font-size:19px;font-weight:900;border-top:1px solid var(--line);padding-top:10px}.empty{text-align:center;padding:25px 10px;color:var(--muted)}.pill{font-size:11px;padding:4px 8px;border-radius:20px;background:#f2eadb;color:#73521f}.danger{color:#a52b30}.success{color:#28744d}.hint{font-size:12px;color:var(--muted);line-height:1.5}.hidden{display:none!important}.receipt-paper{background:white;color:#17130f;padding:22px;max-width:440px;margin:auto;border:1px dashed #c9b78e}.receipt-paper h2{text-align:center;margin:0;color:#17130f}.receipt-paper .tag{text-align:center;color:#a52b30;font-size:11px;letter-spacing:2px}.receipt-paper table{font-size:12px}.receipt-paper th,.receipt-paper td{padding:7px 4px}.receipt-paper .foot{text-align:center;border-top:1px solid #ddd;padding-top:12px;margin-top:12px;font-size:12px}
+footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:9px 14px calc(9px + env(safe-area-inset-bottom));font-size:11px;color:var(--muted);text-align:center;z-index:4}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.two{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.itemrow{grid-template-columns:2fr .6fr .8fr 36px}}
+@media print{body{background:#fff}header,nav,footer,.no-print{display:none!important}main{padding:0;max-width:none}.page{display:none!important}#printArea{display:block!important}.receipt-paper{border:0;max-width:none;padding:10mm}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="mark">KS</div><div><h1>Kanish Suf Cosmetics</h1><small>YOUR SKIN, OUR PASSION</small></div></div>
+ <nav id="nav">
+  <button class="active" data-page="home">Overview</button><button data-page="sales">New Sale</button><button data-page="receipts">Receipts</button><button data-page="customers">Customers</button><button data-page="stock">Stock</button><button data-page="expenses">Expenses</button><button data-page="reports">Reports</button><button data-page="settings">Backup & Settings</button>
+ </nav>
+</header>
+<main>
+<section id="home" class="page active">
+ <div class="between"><h2 class="section-title">Business overview</h2><span class="pill" id="todayLabel"></span></div>
+ <div class="grid">
+  <div class="card"><div class="stat">Today's sales</div><div class="amount gold" id="todaySales">UGX 0</div></div>
+  <div class="card"><div class="stat">Amount received</div><div class="amount" id="todayPaid">UGX 0</div></div>
+  <div class="card"><div class="stat">Outstanding balances</div><div class="amount danger" id="outstanding">UGX 0</div></div>
+  <div class="card"><div class="stat">Receipts issued</div><div class="amount" id="receiptCount">0</div></div>
+ </div>
+ <div class="two"><div class="card"><div class="between"><b>Recent sales</b><button class="btn light small" onclick="showPage('receipts')">View all</button></div><div id="recentSales" class="hint">No sales yet.</div></div>
+ <div class="card"><b>Quick actions</b><div class="actions" style="margin-top:12px"><button class="btn goldbtn" onclick="showPage('sales')">＋ New receipt</button><button class="btn light" onclick="showPage('stock')">Manage stock</button><button class="btn light" onclick="showPage('expenses')">Add expense</button><button class="btn light" onclick="showPage('settings')">Back up data</button></div><p class="hint">Your records are stored on this device. Export a backup regularly and keep a copy in Google Drive.</p></div></div>
+ <div class="card"><b>Low stock alerts</b><div id="lowStock" class="hint" style="margin-top:8px">No stock items recorded.</div></div>
+</section>
+
+<section id="sales" class="page">
+ <h2 class="section-title">Create a receipt</h2>
+ <div class="two">
+ <div class="card">
+  <div class="row"><div class="field"><label>Receipt number</label><input id="receiptNo" readonly></div><div class="field"><label>Date</label><input id="saleDate" type="date"></div></div>
+  <div class="field"><label>Customer name</label><input id="saleCustomer" list="customerOptions" placeholder="Walk-in customer"></div>
+  <datalist id="customerOptions"></datalist>
+  <div class="row"><div class="field"><label>Phone number</label><input id="salePhone" placeholder="07..."></div><div class="field"><label>Payment method</label><select id="saleMethod"><option>Cash</option><option>MTN Mobile Money</option><option>Airtel Money</option><option>Bank</option><option>Card</option><option>Credit</option><option>Other</option></select></div></div>
+  <div class="between"><b>Items sold</b><button class="btn light small" onclick="addItem()">＋ Add item</button></div>
+  <div id="saleItems"></div>
+  <div class="row"><div class="field"><label>Discount (UGX)</label><input id="saleDiscount" type="number" min="0" value="0" oninput="calcSale()"></div><div class="field"><label>Amount paid (UGX)</label><input id="salePaid" type="number" min="0" value="0" oninput="calcSale()"></div></div>
+  <div class="field"><label>Notes</label><input id="saleNotes" placeholder="Optional note"></div>
+ </div>
+ <div class="card">
+  <b>Receipt summary</b><div class="totalbox" style="margin-top:12px">
+   <div class="total-line"><span>Subtotal</span><b id="subtotal">UGX 0</b></div><div class="total-line"><span>Discount</span><b id="discountView">UGX 0</b></div>
+   <div class="total-line final"><span>Total</span><span id="totalView">UGX 0</span></div>
+   <div class="total-line"><span>Paid</span><b id="paidView">UGX 0</b></div><div class="total-line"><span>Balance</span><b id="balanceView">UGX 0</b></div>
+  </div>
+  <p class="hint">Save the sale to create a numbered receipt and update stock quantities where matching stock items exist.</p>
+  <button class="btn goldbtn full" onclick="saveSale()">Save sale & create receipt</button>
+  <p id="saleMsg" class="hint"></p>
+ </div></div>
+</section>
+
+<section id="receipts" class="page">
+ <div class="between"><h2 class="section-title">Receipt history</h2><button class="btn goldbtn small" onclick="showPage('sales')">＋ New</button></div>
+ <div class="card"><input id="receiptSearch" placeholder="Search receipt, customer or phone..." oninput="renderReceipts()"></div>
+ <div class="card tablewrap"><table><thead><tr><th>Receipt</th><th>Date</th><th>Customer</th><th>Total</th><th>Balance</th><th></th></tr></thead><tbody id="receiptRows"></tbody></table><div id="receiptEmpty" class="empty">No receipts saved yet.</div></div>
+ <div id="receiptDetail" class="card hidden"></div>
+</section>
+<section id="customers" class="page">
+ <h2 class="section-title">Customer book</h2>
+ <div class="card"><div class="row"><div class="field"><label>Customer name</label><input id="custName" placeholder="Customer name"></div><div class="field"><label>Phone</label><input id="custPhone" placeholder="Phone number"></div></div><button class="btn goldbtn" onclick="addCustomer()">Save customer</button></div>
+ <div class="card tablewrap"><table><thead><tr><th>Name</th><th>Phone</th><th>Purchases</th><th>Total spent</th></tr></thead><tbody id="customerRows"></tbody></table><div id="customerEmpty" class="empty">No customers saved yet.</div></div>
+</section>
+
+<section id="stock" class="page">
+ <h2 class="section-title">Product & stock manager</h2>
+ <div class="card"><div class="row"><div class="field"><label>Product name</label><input id="stockName" placeholder="e.g. Kojie-san soap"></div><div class="field"><label>SKU / code</label><input id="stockSku" placeholder="Optional"></div></div>
+ <div class="row"><div class="field"><label>Buying cost (UGX)</label><input id="stockCost" type="number" min="0"></div><div class="field"><label>Selling price (UGX)</label><input id="stockPrice" type="number" min="0"></div><div class="field"><label>Quantity</label><input id="stockQty" type="number" min="0"></div></div><button class="btn goldbtn" onclick="addStock()">Add product</button></div>
+ <div class="card tablewrap"><table><thead><tr><th>Product</th><th>In stock</th><th>Cost</th><th>Price</th><th>Action</th></tr></thead><tbody id="stockRows"></tbody></table><div id="stockEmpty" class="empty">No products recorded yet.</div></div>
+</section>
+
+<section id="expenses" class="page">
+ <h2 class="section-title">Business expenses</h2>
+ <div class="card"><div class="row"><div class="field"><label>Description</label><input id="expDesc" placeholder="Transport, rent, delivery..."></div><div class="field"><label>Amount (UGX)</label><input id="expAmount" type="number" min="0"></div></div><div class="row"><div class="field"><label>Date</label><input id="expDate" type="date"></div><div class="field"><label>Category</label><select id="expCategory"><option>Transport</option><option>Rent</option><option>Stock purchase</option><option>Utilities</option><option>Marketing</option><option>Delivery</option><option>Other</option></select></div></div><button class="btn goldbtn" onclick="addExpense()">Save expense</button></div>
+ <div class="card tablewrap"><table><thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th></th></tr></thead><tbody id="expenseRows"></tbody></table><div id="expenseEmpty" class="empty">No expenses recorded yet.</div></div>
+</section>
+
+<section id="reports" class="page">
+ <h2 class="section-title">Business reports</h2>
+ <div class="card"><div class="row"><div class="field"><label>From</label><input id="reportFrom" type="date" onchange="renderReports()"></div><div class="field"><label>To</label><input id="reportTo" type="date" onchange="renderReports()"></div></div></div>
+ <div class="grid">
+  <div class="card"><div class="stat">Sales</div><div class="amount gold" id="rSales">UGX 0</div></div>
+  <div class="card"><div class="stat">Collected</div><div class="amount" id="rPaid">UGX 0</div></div>
+  <div class="card"><div class="stat">Outstanding</div><div class="amount danger" id="rBalance">UGX 0</div></div>
+  <div class="card"><div class="stat">Expenses</div><div class="amount" id="rExpenses">UGX 0</div></div>
+ </div>
+ <div class="card"><div class="between"><b>Estimated gross profit</b><b id="rProfit" class="amount success">UGX 0</b></div><p class="hint">Estimate uses recorded product buying costs for items matched to stock. Items without a cost record are excluded. This is not an audited accounting statement.</p></div>
+ <div class="card"><b>Export reports</b><div class="actions" style="margin-top:10px"><button class="btn light" onclick="exportCSV()">Download sales CSV</button><button class="btn light" onclick="window.print()">Print this report</button></div></div>
+</section>
+
+<section id="settings" class="page">
+ <h2 class="section-title">Backup & settings</h2>
+ <div class="card"><b>Business details</b><div class="field"><label>Business name</label><input id="bizName" value="Kanish Suf Cosmetics"></div><div class="field"><label>Phone number</label><input id="bizPhone" value="0742 350513"></div><div class="field"><label>Tagline</label><input id="bizTag" value="Your Skin, Our Passion"></div><div class="field"><label>Location</label><input id="bizLocation" value="Busia & Jinja"></div><button class="btn goldbtn" onclick="saveSettings()">Save business details</button></div>
+ <div class="card"><b>Protect your business records</b><p class="hint">Your data stays in this browser on this phone. Backups are not automatic and do not sync by themselves. Export a backup often, then save it in Google Drive or another safe place.</p><div class="actions"><button class="btn goldbtn" onclick="backupData()">Download full backup</button><button class="btn light" onclick="document.getElementById('restoreFile').click()">Restore from backup</button><input id="restoreFile" class="hidden" type="file" accept=".json,application/json" onchange="restoreData(event)"></div><p id="backupMsg" class="hint"></p></div>
+ <div class="card"><b>Install on Android</b><p class="hint">When this app is hosted on a secure website, open it in Chrome, tap the three dots, then choose “Install app” or “Add to Home screen”. The app works offline after it has been installed and opened once. Keep your backup file separately.</p><button class="btn light" onclick="installApp()" id="installBtn">Install app</button><p class="hint" id="installMsg"></p></div>
+ <div class="card"><b>Danger zone</b><p class="hint">This permanently clears all records from this browser. Export a backup first.</p><button class="btn red" onclick="clearAll()">Clear all app data</button></div>
+</section>
+<div id="printArea" class="hidden"></div>
+</main>
+<footer>Kanish Suf Cosmetics · Your Skin, Our Passion</footer>
+<script>
+const KEY='ksc_business_book_v2';
+let db={receipts:[],customers:[],stock:[],expenses:[],settings:{name:'Kanish Suf Cosmetics',phone:'0742 350513',tag:'Your Skin, Our Passion',location:'Busia & Jinja'},next:1};
+let deferredInstall=null;
+let editingReceiptId=null;
+const $=id=>document.getElementById(id);
+const money=n=>'UGX '+Number(n||0).toLocaleString('en-UG');
+const today=()=>new Date().toISOString().slice(0,10);
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x)db={...db,...x}}catch(e){}}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
+function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));if(id==='sales'&&!editingReceiptId)newSale();if(id==='reports')renderReports();window.scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function newSale(){editingReceiptId=null;$('salePaid').disabled=false;const saveBtn=document.querySelector('#sales button[onclick="saveSale()"]');if(saveBtn)saveBtn.textContent='Save sale & create receipt';$('receiptNo').value='KSC-'+String(db.next).padStart(4,'0');$('saleDate').value=today();$('saleCustomer').value='';$('salePhone').value='';$('saleMethod').value='Cash';$('saleDiscount').value=0;$('salePaid').value=0;$('saleNotes').value='';$('saleItems').innerHTML='';addItem();calcSale();$('saleMsg').textContent='';}
+function addItem(name='',qty=1,price=0){const d=document.createElement('div');d.className='itemrow';d.innerHTML='<input class="iname" placeholder="Product / service"><input class="iqty" type="number" min="1" value="'+qty+'" aria-label="Quantity"><input class="iprice" type="number" min="0" value="'+price+'" placeholder="Unit price"><button type="button" aria-label="Remove">×</button>';d.querySelectorAll('input').forEach(i=>i.addEventListener('input',calcSale));d.querySelector('button').onclick=()=>{d.remove();calcSale()};d.querySelector('.iname').value=name;$('saleItems').appendChild(d)}
+function saleLines(){return [...document.querySelectorAll('.itemrow')].map(r=>({name:r.querySelector('.iname').value.trim(),qty:Math.max(0,Number(r.querySelector('.iqty').value)||0),price:Math.max(0,Number(r.querySelector('.iprice').value)||0)})).filter(x=>x.name&&x.qty>0)}
+function totals(lines=saleLines()){const sub=lines.reduce((s,x)=>s+x.qty*x.price,0),disc=Math.max(0,Number($('saleDiscount')?.value)||0),total=Math.max(0,sub-disc),paid=Math.min(total,Math.max(0,Number($('salePaid')?.value)||0));return{sub,disc,total,paid,balance:total-paid}}
+function calcSale(){const t=totals();$('subtotal').textContent=money(t.sub);$('discountView').textContent=money(t.disc);$('totalView').textContent=money(t.total);$('paidView').textContent=money(t.paid);$('balanceView').textContent=money(t.balance)}
+ function saveSale(){
+ const lines=saleLines(),t=totals(lines);
+ if(!lines.length){$('saleMsg').textContent='Add at least one item with a name and quantity.';return}
+ if(t.disc>t.sub){$('saleMsg').textContent='Discount cannot exceed subtotal.';return}
+ const customer=$('saleCustomer').value.trim()||'Walk-in customer';
+ const phone=$('salePhone').value.trim();
+ let r,no=$('receiptNo').value;
+ if(editingReceiptId){
+  r=db.receipts.find(x=>x.id===editingReceiptId);
+  if(!r){alert('Receipt not found.');newSale();return}
+  if((Number(r.paid)||0)>t.total){
+   alert('The new total cannot be lower than payments already received ('+money(r.paid)+').');
+   return;
+  }
+  const oldLines=r.lines||[];
+  oldLines.forEach(l=>{const st=db.stock.find(x=>x.name.toLowerCase()===l.name.toLowerCase());if(st)st.qty+=Number(l.qty)||0});
+  lines.forEach(l=>{const st=db.stock.find(x=>x.name.toLowerCase()===l.name.toLowerCase());if(st)st.qty=Math.max(0,st.qty-l.qty)});
+  r.date=$('saleDate').value||today();
+  r.customer=customer;r.phone=phone;r.method=$('saleMethod').value;
+  r.lines=lines;r.discount=t.disc;r.total=t.total;
+  r.paid=Number(r.paid)||0;
+  r.balance=Math.max(0,r.total-r.paid);
+  r.notes=$('saleNotes').value.trim();
+  no=r.no;editingReceiptId=null;
+ }else{
+  r={
+   id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),
+   no,date:$('saleDate').value||today(),customer,phone,
+   method:$('saleMethod').value,lines,discount:t.disc,
+   total:t.total,paid:t.paid,balance:t.balance,
+   notes:$('saleNotes').value.trim(),
+   created:new Date().toISOString(),
+   payments:t.paid?[{amount:t.paid,method:$('saleMethod').value,date:$('saleDate').value||today(),note:'Initial payment'}]:[]
+  };
+  db.receipts.unshift(r);db.next++;
+  lines.forEach(l=>{const st=db.stock.find(x=>x.name.toLowerCase()===l.name.toLowerCase());if(st)st.qty=Math.max(0,st.qty-l.qty)});
+ }
+ if(customer!=='Walk-in customer'){
+  let c=db.customers.find(x=>x.phone&&x.phone===phone)||db.customers.find(x=>x.name.toLowerCase()===customer.toLowerCase());
+  if(!c){c={name:customer,phone};db.customers.push(c)}
+  else if(phone)c.phone=phone;
+ }
+ save();
+ $('saleMsg').textContent='Receipt '+no+' saved successfully.';
+ showPage('receipts');showReceipt(r.id);
+}
+
+function editReceipt(id){
+ const r=db.receipts.find(x=>x.id===id);
+ if(!r)return;
+ editingReceiptId=id;
+ showPage('sales');
+ $('receiptNo').value=r.no;
+ $('saleDate').value=r.date||today();
+ $('saleCustomer').value=r.customer||'';
+ $('salePhone').value=r.phone||'';
+ $('saleMethod').value=r.method||'Cash';
+ $('saleDiscount').value=Number(r.discount)||0;
+ $('salePaid').value=Number(r.paid)||0;
+ $('salePaid').disabled=true;
+ $('saleNotes').value=r.notes||'';
+ $('saleItems').innerHTML='';
+ (r.lines||[]).forEach(x=>addItem(x.name,x.qty,x.price));
+ if(!(r.lines||[]).length)addItem();
+ calcSale();
+ $('saleMsg').textContent='Editing '+r.no+'. Existing payments are protected.';
+ const b=document.querySelector('#sales button[onclick="saveSale()"]');
+ if(b)b.textContent='Save changes to receipt';
+ window.scrollTo(0,0);
+}
+
+function recordPayment(id){
+ const r=db.receipts.find(x=>x.id===id);
+ if(!r)return;
+ const balance=Math.max(0,Number(r.total||0)-Number(r.paid||0));
+ if(!balance){alert('This receipt is already fully paid.');return}
+ const raw=prompt('Outstanding balance: '+money(balance)+'\nEnter amount received (UGX):');
+ if(raw===null)return;
+ const amount=Number(raw);
+ if(!Number.isFinite(amount)||amount<=0){alert('Enter a valid payment amount.');return}
+ if(amount>balance){alert('Payment cannot exceed the outstanding balance.');return}
+ const method=prompt('Payment method (Cash, MTN Mobile Money, Airtel Money, Bank):','Cash');
+ if(method===null)return;
+ if(!Array.isArray(r.payments)){
+  r.payments=r.paid?[{amount:Number(r.paid),method:r.method||'Unknown',date:r.date||today(),note:'Previously recorded payment'}]:[];
+ }
+ r.payments.push({amount,method:method.trim()||'Cash',date:today()});
+ r.paid=Number(r.paid||0)+amount;
+ r.balance=Math.max(0,r.total-r.paid);
+ save();
+ showReceipt(id);
+}
+
+function receiptHTML(r){
+ const s=db.settings;
+ return `<div class="receipt-paper"><h2>${esc(s.name)}</h2><div class="tag">${esc(s.tag)}</div><p style="text-align:center;font-size:11px">${esc(s.location||'')} · ${esc(s.phone||'')}</p><hr><div class="between"><b>SALES RECEIPT</b><b>${esc(r.no)}</b></div><p style="font-size:12px">Date: ${esc(r.date)}<br>Customer: ${esc(r.customer)}<br>Phone: ${esc(r.phone||'—')}<br>Payment: ${esc(r.method)}</p><table><thead><tr><th>Item</th><th>Qty</th><th>Price</th><th class="right">Total</th></tr></thead><tbody>${r.lines.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.qty}</td><td>${money(x.price)}</td><td class="right">${money(x.qty*x.price)}</td></tr>`).join('')}</tbody></table><div style="margin-top:12px"><div class="total-line"><span>Subtotal</span><b>${money(r.lines.reduce((a,x)=>a+x.qty*x.price,0))}</b></div><div class="total-line"><span>Discount</span><b>${money(r.discount)}</b></div><div class="total-line final"><span>TOTAL</span><span>${money(r.total)}</span></div><div class="total-line"><span>Paid</span><b>${money(r.paid)}</b></div><div class="total-line"><span>Balance</span><b>${money(r.balance)}</b></div></div>${(r.payments||[]).length?`<p style="font-size:11px"><b>Payment history</b><br>${r.payments.map(p=>`${esc(p.date)} · ${esc(p.method)} · ${money(p.amount)}`).join('<br>')}</p>`:''}${r.notes?`<p style="font-size:12px">Note: ${esc(r.notes)}</p>`:''}<div class="foot">Thank you for shopping with us!<br><b>Your Skin, Our Passion</b></div></div>`;
+}
+
+function esc(v){
+ return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function showReceipt(id){
+ const r=db.receipts.find(x=>x.id===id);
+ if(!r)return;
+ const d=$('receiptDetail');
+ d.classList.remove('hidden');
+ const status=Number(r.balance)>0?(Number(r.paid)>0?'Partially paid':'Credit / unpaid'):'Fully paid';
+ d.innerHTML=`<div class="between no-print"><b>${esc(r.no)} · ${esc(r.customer)} <span class="pill">${status}</span></b><button class="btn light small" onclick="$('receiptDetail').classList.add('hidden')">Close</button></div><div id="receiptToPrint">${receiptHTML(r)}</div><div class="actions no-print" style="margin-top:12px"><button class="btn goldbtn" onclick="editReceipt('${r.id}')">Edit receipt</button>${Number(r.balance)>0?`<button class="btn goldbtn" onclick="recordPayment('${r.id}')">Record payment</button>`:''}<button class="btn light" onclick="printReceipt('${r.id}')">Print / Save PDF</button><button class="btn light" onclick="shareReceipt('${r.id}')">Share receipt</button><button class="btn light" onclick="deleteReceipt('${r.id}')">Delete</button></div>`;
+ d.scrollIntoView({behavior:'smooth'});
+}
+
+function printReceipt(id){
+ const r=db.receipts.find(x=>x.id===id);
+ $('printArea').innerHTML=receiptHTML(r);
+ window.print();
+ $('printArea').innerHTML='';
+}
+
+async function shareReceipt(id){
+ const r=db.receipts.find(x=>x.id===id);
+ const text=`${db.settings.name}\nReceipt ${r.no}\nDate: ${r.date}\nCustomer: ${r.customer}\nTotal: ${money(r.total)}\nPaid: ${money(r.paid)}\nBalance: ${money(r.balance)}\nThank you!`;
+ if(navigator.share){try{await navigator.share({title:r.no,text})}catch(e){}}
+ else{await navigator.clipboard?.writeText(text);alert('Receipt summary copied. You can paste it into WhatsApp.')}
+}
+
+function deleteReceipt(id){
+ if(!confirm('Delete this receipt? Stock will not be adjusted automatically.'))return;
+ db.receipts=db.receipts.filter(x=>x.id!==id);
+ save();$('receiptDetail').classList.add('hidden');
+}
+
+function renderReceipts(){
+ const q=($('receiptSearch')?.value||'').toLowerCase();
+ const arr=db.receipts.filter(r=>[r.no,r.customer,r.phone].join(' ').toLowerCase().includes(q));
+ $('receiptRows').innerHTML=arr.map(r=>`<tr><td><b>${esc(r.no)}</b></td><td>${esc(r.date)}</td><td>${esc(r.customer)}</td><td>${money(r.total)}</td><td class="${r.balance?'danger':'success'}">${money(r.balance)}</td><td><button class="btn light small" onclick="showReceipt('${r.id}')">Open</button></td></tr>`).join('');
+ $('receiptEmpty').classList.toggle('hidden',arr.length>0);
+}
+
+function addCustomer(){
+ const name=$('custName').value.trim(),phone=$('custPhone').value.trim();
+ if(!name){alert('Enter customer name.');return}
+ let c=db.customers.find(x=>phone&&x.phone===phone);
+ if(c){c.name=name}else db.customers.push({name,phone});
+ $('custName').value='';$('custPhone').value='';save();
+}
+
+function renderCustomers(){
+ $('customerRows').innerHTML=db.customers.map(c=>{
+  const rs=db.receipts.filter(r=>(c.phone&&r.phone===c.phone)||r.customer.toLowerCase()===c.name.toLowerCase());
+  return `<tr><td>${esc(c.name)}</td><td>${esc(c.phone||'—')}</td><td>${rs.length}</td><td>${money(rs.reduce((a,r)=>a+r.total,0))}</td></tr>`;
+ }).join('');
+ $('customerEmpty').classList.toggle('hidden',db.customers.length>0);
+ $('customerOptions').innerHTML=db.customers.map(c=>`<option value="${esc(c.name)}">`).join('');
+}
+
+function addStock(){
+ const name=$('stockName').value.trim(),qty=Number($('stockQty').value),cost=Number($('stockCost').value)||0,price=Number($('stockPrice').value)||0;
+ if(!name||qty<0||!Number.isFinite(qty)){alert('Enter a product name and valid quantity.');return}
+ let s=db.stock.find(x=>x.name.toLowerCase()===name.toLowerCase());
+ if(s){s.qty+=qty;s.cost=cost;s.price=price;s.sku=$('stockSku').value.trim()}
+ else db.stock.push({id:Date.now(),name,sku:$('stockSku').value.trim(),qty,cost,price});
+ ['stockName','stockSku','stockCost','stockPrice','stockQty'].forEach(id=>$(id).value='');
+ save();
+}
+
+function adjustStock(id){
+ const s=db.stock.find(x=>x.id===id);
+ const v=prompt('Enter new stock quantity for '+s.name,s.qty);
+ if(v===null)return;
+ const n=Number(v);
+ if(!Number.isFinite(n)||n<0){alert('Enter a valid quantity.');return}
+ s.qty=n;save();
+}
+
+function renderStock(){
+ $('stockRows').innerHTML=db.stock.map(s=>`<tr><td><b>${esc(s.name)}</b><br><span class="hint">${esc(s.sku||'')}</span></td><td class="${s.qty<=5?'danger':''}">${s.qty}</td><td>${money(s.cost)}</td><td>${money(s.price)}</td><td><button class="btn light small" onclick="adjustStock(${s.id})">Adjust</button></td></tr>`).join('');
+ $('stockEmpty').classList.toggle('hidden',db.stock.length>0);
+}
+
+function addExpense(){
+ const desc=$('expDesc').value.trim(),amount=Number($('expAmount').value);
+ if(!desc||!amount||amount<0){alert('Enter a description and amount.');return}
+ db.expenses.unshift({id:Date.now(),desc,amount,date:$('expDate').value||today(),category:$('expCategory').value});
+ $('expDesc').value='';$('expAmount').value='';save();
+}
+
+function renderExpenses(){
+ $('expenseRows').innerHTML=db.expenses.map(e=>`<tr><td>${esc(e.date)}</td><td>${esc(e.desc)}</td><td>${esc(e.category)}</td><td>${money(e.amount)}</td><td><button class="btn light small" onclick="deleteExpense(${e.id})">Delete</button></td></tr>`).join('');
+ $('expenseEmpty').classList.toggle('hidden',db.expenses.length>0);
+}
+
+function deleteExpense(id){
+ if(confirm('Delete this expense?')){db.expenses=db.expenses.filter(e=>e.id!==id);save()}
+}
+
+function inRange(d,from,to){return d>=from&&d<=to}
+
+function renderReports(){
+ const from=$('reportFrom').value||'0000-01-01',to=$('reportTo').value||'9999-12-31';
+ const rs=db.receipts.filter(r=>inRange(r.date,from,to)),es=db.expenses.filter(e=>inRange(e.date,from,to));
+ const sales=rs.reduce((a,r)=>a+r.total,0),paid=rs.reduce((a,r)=>a+r.paid,0),bal=rs.reduce((a,r)=>a+r.balance,0),exp=es.reduce((a,e)=>a+e.amount,0);
+ let cost=0;
+ rs.forEach(r=>r.lines.forEach(l=>{const s=db.stock.find(x=>x.name.toLowerCase()===l.name.toLowerCase());if(s)cost+=s.cost*l.qty}));
+ $('rSales').textContent=money(sales);$('rPaid').textContent=money(paid);$('rBalance').textContent=money(bal);$('rExpenses').textContent=money(exp);$('rProfit').textContent=money(sales-cost-exp);
+}
+
+function renderHome(){
+ const d=today(),rs=db.receipts.filter(r=>r.date===d);
+ $('todayLabel').textContent=d;
+ $('todaySales').textContent=money(rs.reduce((a,r)=>a+r.total,0));
+ $('todayPaid').textContent=money(rs.reduce((a,r)=>a+r.paid,0));
+ $('outstanding').textContent=money(db.receipts.reduce((a,r)=>a+r.balance,0));
+ $('receiptCount').textContent=db.receipts.length;
+ $('recentSales').innerHTML=db.receipts.slice(0,5).map(r=>`<div class="between" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>${esc(r.no)} · ${esc(r.customer)}</span><b>${money(r.total)}</b></div>`).join('')||'No sales yet.';
+ $('lowStock').innerHTML=db.stock.filter(s=>s.qty<=5).map(s=>`<div class="between" style="padding:5px 0"><span>${esc(s.name)}</span><b class="danger">${s.qty} left</b></div>`).join('')|| (db.stock.length?'All recorded products have more than 5 units.':'No stock items recorded.');
+}
+
+function renderAll(){
+ renderHome();renderReceipts();renderCustomers();renderStock();renderExpenses();renderReports();
+ if($('bizName')){
+  $('bizName').value=db.settings.name;$('bizPhone').value=db.settings.phone;
+  $('bizTag').value=db.settings.tag;$('bizLocation').value=db.settings.location;
+ }
+}
+
+function saveSettings(){
+ db.settings={name:$('bizName').value.trim()||'Kanish Suf Cosmetics',phone:$('bizPhone').value.trim(),tag:$('bizTag').value.trim(),location:$('bizLocation').value.trim()};
+ save();alert('Business details saved.');
+}
+
+function download(name,content,type){
+ const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);
+}
+
+function backupData(){
+ const data={...db,backupVersion:2,backupDate:new Date().toISOString()};
+ download('Kanish-Suf-Backup-'+today()+'.json',JSON.stringify(data,null,2),'application/json');
+ $('backupMsg').textContent='Backup downloaded. Move a copy to Google Drive or another safe place.';
+}
+
+function restoreData(ev){
+ const f=ev.target.files[0];if(!f)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const x=JSON.parse(reader.result);
+   if(!Array.isArray(x.receipts)||!Array.isArray(x.stock)||!Array.isArray(x.expenses))throw Error('This does not look like a valid Kanish Suf backup.');
+   if(!confirm('Restore this backup? Current records on this phone will be replaced.'))return;
+   db={...db,...x};save();$('backupMsg').textContent='Backup restored successfully.';alert('Your backup has been restored.');
+  }catch(e){alert(e.message||'Could not read backup.')}
+  ev.target.value='';
+ };
+ reader.readAsText(f);
+}
+
+function exportCSV(){
+ const rows=[['Receipt','Date','Customer','Phone','Method','Total UGX','Paid UGX','Balance UGX','Items']];
+ db.receipts.forEach(r=>rows.push([r.no,r.date,r.customer,r.phone,r.method,r.total,r.paid,r.balance,r.lines.map(x=>`${x.name} x${x.qty}`).join('; ')]));
+ const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+ download('Kanish-Suf-Sales-'+today()+'.csv',csv,'text/csv');
+}
+
+function clearAll(){
+ if(!confirm('Are you sure? This deletes every receipt, customer, product and expense stored in this browser.'))return;
+ if(!confirm('Final confirmation: permanently clear all app data?'))return;
+ localStorage.removeItem(KEY);
+ db={receipts:[],customers:[],stock:[],expenses:[],settings:{name:'Kanish Suf Cosmetics',phone:'0742 350513',tag:'Your Skin, Our Passion',location:'Busia & Jinja'},next:1};
+ newSale();save();alert('App data cleared.');
+}
+
+async function installApp(){
+ if(deferredInstall){deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null}
+ else $('installMsg').textContent='If the install prompt is not available, use Chrome menu ⋮ → Install app / Add to Home screen. This works after the app is hosted over HTTPS.';
+}
+
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('installBtn').classList.remove('hidden')});
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+load();
+$('saleDate').value=today();
+$('expDate').value=today();
+$('reportFrom').value=new Date(new Date().getFullYear(),new Date().getMonth(),1).toISOString().slice(0,10);
+$('reportTo').value=today();
+newSale();
+renderAll();
+</script>
+</body>
+</html>
